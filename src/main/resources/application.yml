@@ -1,0 +1,50 @@
+spring:
+  application:
+    name: jar-klawz-mbp
+  datasource:
+    url: jdbc:h2:file:${user.home}/.klawz/mbp-data;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+server:
+  port: 8080
+klawz:
+  provider: kimi
+  mbp:
+    workspace: ${user.home}/.klawz/workspace
+    shell:
+      allowlist:
+        - docker
+        - docker-compose
+        - kubectl
+        - helm
+        - terraform
+        - aws
+        - az
+        - gcloud
+  shell:
+    enabled: true
+    strict-mode: false
+    timeout-seconds: 300
+
+# Maton.ai fleet integration
+maton:
+  api:
+    url: ${MATON_API_URL:https://api.maton.ai/v1}
+    key: ${MATON_API_KEY:}
+    health:
+      path: /health
+
+logging:
+  level:
+    io.jar.klawz: DEBUG
+  file:
+    name: ${user.home}/.klawz/logs/mbp.log
